@@ -4,9 +4,9 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 /**
-  * Created by diegozarcogomez on 29/1/18.
+  * Created by diegozarcogomez on 31/1/18.
   */
-object ForComprehension extends App{
+object ForComprehensionSecuential extends App{
 
   def runAlgorithm1(i: Int): Future[Int] = Future{
     println("runAlgorithm1")
@@ -28,17 +28,12 @@ object ForComprehension extends App{
 
   def sleep(duration: Long) { Thread.sleep(duration)}
 
-  println("starting futures")
-  //If we don't launch the futures outside the for-comprehension all the futures will be launch in sequential
-  val result1 = runAlgorithm1(10)
-  val result2 = runAlgorithm2(20)
-  val result3 = runAlgorithm3(30)
-
+  //As we are launching the futures inside the for-comprehension all the futures are going to be launched in sequential
   println("before for-comprehension")
   val result = for {
-    r1 <- result1
-    r2 <- result2
-    r3 <- result3
+    r1 <- runAlgorithm1(10)
+    r2 <- runAlgorithm2(20)
+    r3 <- runAlgorithm3(30)
   } yield(r1+r2+r3)
 
   println("before onSucess")
@@ -48,7 +43,4 @@ object ForComprehension extends App{
 
   println("before sleep at the end")
   sleep(2000)
-
-
-
 }
