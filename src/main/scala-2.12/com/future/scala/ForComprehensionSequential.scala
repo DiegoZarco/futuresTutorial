@@ -6,7 +6,7 @@ import scala.concurrent.Future
 /**
   * Created by diegozarcogomez on 31/1/18.
   */
-object ForComprehensionSecuential extends App{
+object ForComprehensionSequential extends App{
 
   def runAlgorithm1(i: Int): Future[Int] = Future{
     println("runAlgorithm1")
